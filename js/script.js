@@ -37,7 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function addComment(text, isAI = false) {
         comments.push({ text: text, isAI: isAI });
         localStorage.setItem('comments', JSON.stringify(comments));
-        renderComments();
+        renderComments(); // Re-render comments
+        checkVoteCookie(); // Re-check the cookie and disable the buttons
     }
 
     // Function to render all comments
@@ -148,4 +149,18 @@ document.addEventListener('DOMContentLoaded', () => {
             swCountSpan.textContent = swVotes;
             setVoteCookie();
             swButton.disabled = true;
-            lot
+            lotrButton.disabled = true;
+        }
+    });
+
+    lotrButton.addEventListener('click', () => {
+        if (!lotrButton.disabled) {
+            lotrVotes++;
+            localStorage.setItem('lotrVotes', lotrVotes);
+            lotrCountSpan.textContent = lotrVotes;
+            setVoteCookie();
+            swButton.disabled = true;
+            lotrButton.disabled = true;
+        }
+    });
+});
